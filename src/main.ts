@@ -11,6 +11,11 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
+      //Estas 2 props transform son para que convierta a tipo number los numeros que son tipo string de los query params como limit y offset
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   );
 
