@@ -73,8 +73,21 @@ export class PokemonService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pokemon`;
+  async remove(id: string) {
+    /**
+     * Esto sirve para eliminar el pokemon ya sea que envíe el MongoId/no/name
+     *
+     * const pokemon = await this.findOne(id);
+     * await pokemon.deleteOne();
+     */
+
+    //Pero quiero construir mi BE donde solo se pueda eliminar el pokemon por su MongoId (por eso utilicé el ParseMongoIdPipe en el controller)
+
+    const { deletedCount } = await this.pokemonModel.deleteOne({ _id: id });
+    if (deletedCount === 0) {
+      throw new BadRequestException(`Pokemon with id "${id}" not found`);
+    }
+    return;
   }
 
   private handleExceptions(error: any) {
