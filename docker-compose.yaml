@@ -11,3 +11,53 @@ services:
       MONGODB_DATABASE: nest-pokemon
     volumes:
       - ./mongo:/data/db
+
+######################
+#si reemplazamos nuestro docker-compose por este (docker-compose.prod.yaml), no solo levantaremos la base de datos, sino tmb la app de Nest, que la construye con el Dockerfile que definimos
+
+# version: '3'
+
+# services:
+#   pokedexapp:
+#     depends_on:
+#       - db
+#     build: 
+#       context: .
+#       dockerfile: Dockerfile
+#     image: pokedex-docker
+#     container_name: pokedexapp
+#     restart: always # reiniciar el contenedor si se detiene
+#     ports:
+#       - "${PORT}:${PORT}"
+#     # working_dir: /var/www/pokedex
+#     environment:
+#       MONGODB: ${MONGODB}
+#       PORT: ${PORT}
+#       DEFAULT_LIMIT: ${DEFAULT_LIMIT}
+#     # volumes:
+#     #   - ./:/var/www/pokedex
+
+#   db:
+#     image: mongo:5
+#     container_name: mongo-poke
+#     restart: always
+#     ports:
+#       - 27017:27017
+#     environment:
+#       MONGODB_DATABASE: nest-pokemon
+#     # volumes:
+#     #   - ./mongo:/data/db
+
+
+# COMANDOS:
+
+#Build
+#docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+#        con el -f fileName.yaml, especificamos el archivo a utilizar, por si tenemos más de uno
+
+#Run
+#docker-compose -f docker-compose.prod.yaml --env-file .env.prod up
+
+#Nota
+#Por defecto, docker-compose usa el archivo .env, por lo que si tienen el archivo .env y lo configuran con sus variables de entorno de producción, bastaría con
+#docker-compose -f docker-compose.prod.yaml up --build
