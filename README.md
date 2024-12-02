@@ -37,3 +37,14 @@ http://localhost:3000/api/v1/seed
 # Stack usado
   * NestJS
   * MongoDB
+  * Despliegue contamos con dos opciones:
+    1. Railway
+    2. Heroku + MongoAtlas
+
+# Production build
+1. Crear el archivo __.env.prod__
+2. LLenar las variables de entorno de de prod
+3. Crear la nueva imagen
+```
+docker-compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+```
